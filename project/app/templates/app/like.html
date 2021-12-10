@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 class="text-center">AJAX CODE:</h1>
+    <div class="container">
+        <div class="row">
+            {% for p in post %}
+            
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h5>{{p.post_title}}</h5>
+                <p>{{p.post_paragraph}}</p>
+                <p><a class="likebutton btn btn-primary btn-lg" id="like{{p.id}}" data-catid="{{ p.id }}">Like</a></p>
+            </div>
+            <div class="col-md-3"></div>
+              
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('.likebutton').click(function(){
+            var id;
+            id = $(this).attr("data-catid");
+            $.ajax({
+                type : "GET",
+                url : "like",
+                data : { post_id : id},
+                success : function(data){
+                    $('#like'+ id ).removeClass('btn btn-primary btn-lg');
+                    $('#like'+ id ).addClass('btn btn-warning btn-lg');
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>
